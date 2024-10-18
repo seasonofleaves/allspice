@@ -7,7 +7,7 @@ public class Recipe
   public int Id { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
-  [MinLength(3), MaxLength(25)]
+  [MinLength(3), MaxLength(50)]
   public string Title { get; set; }
   [MinLength(15), MaxLength(250)]
   public string Instructions { get; set; }
