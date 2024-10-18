@@ -1,3 +1,4 @@
+
 namespace allspice.Services;
 
 public class RecipesService
@@ -6,5 +7,11 @@ public class RecipesService
   public RecipesService(RecipesRepository repository)
   {
     _repository = repository;
+  }
+
+  internal Recipe CreateRecipe(Recipe recipeData)
+  {
+    Recipe recipe = _repository.CreateRecipe(recipeData);
+    return recipe;
   }
 }
