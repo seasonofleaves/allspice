@@ -21,4 +21,10 @@ public class RecipesService
     List<Recipe> recipes = _repository.GetAllRecipes();
     return recipes;
   }
+
+  internal Recipe GetRecipeById(int recipeId)
+  {
+    Recipe recipe = _repository.GetRecipeById(recipeId);
+    return recipe;
+  }
 }
