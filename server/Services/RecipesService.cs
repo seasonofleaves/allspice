@@ -16,6 +16,23 @@ public class RecipesService
     return recipe;
   }
 
+  internal Recipe EditRecipe(int recipeId, string userId, Recipe editRecipeData)
+  {
+    Recipe recipeToEdit = GetRecipeById(recipeId);
+    if (recipeToEdit.CreatorId != userId)
+    {
+      throw new Exception("Not your recipe to edit.");
+    }
+
+    recipeToEdit.Title = editRecipeData.Title ?? recipeToEdit.Title;
+    recipeToEdit.Instructions = editRecipeData.Instructions ?? recipeToEdit.Instructions;
+    recipeToEdit.Img = editRecipeData.Img ?? recipeToEdit.Img;
+    recipeToEdit.Category = editRecipeData.Category ?? recipeToEdit.Category;
+
+    _repository.EditRecipe(recipeToEdit);
+    return recipeToEdit;
+  }
+
   internal List<Recipe> GetAllRecipes()
   {
     List<Recipe> recipes = _repository.GetAllRecipes();
@@ -25,6 +42,7 @@ public class RecipesService
   internal Recipe GetRecipeById(int recipeId)
   {
     Recipe recipe = _repository.GetRecipeById(recipeId);
+    if (recipe == null) { throw new Exception($"Invalid recipe id: {recipeId}"); }
     return recipe;
   }
 }

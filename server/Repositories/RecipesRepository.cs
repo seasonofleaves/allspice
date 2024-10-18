@@ -1,5 +1,6 @@
 
 
+
 namespace allspice.Repositories;
 
 public class RecipesRepository
@@ -58,6 +59,25 @@ public class RecipesRepository
 
     Recipe recipe = _db.Query<Recipe, Profile, Recipe>(sql, JoinCreatorToRecipe, new { recipeId }).FirstOrDefault();
     return recipe;
+  }
+
+  internal void EditRecipe(Recipe recipeToEdit)
+  {
+    string sql = @"
+      UPDATE
+      recipes
+      SET
+      title = @Title,
+      instructions = @Instructions,
+      img = @Img,
+      category = @Category
+      WHERE id = @Id
+      LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, recipeToEdit);
+
+    if (rowsAffected == 0) { throw new Exception("No recipes were updated."); }
+    if (rowsAffected > 1) { throw new Exception($"{rowsAffected} recipes were updated."); }
   }
 }
 
