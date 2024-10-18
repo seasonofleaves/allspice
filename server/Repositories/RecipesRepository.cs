@@ -23,7 +23,7 @@ public class RecipesRepository
       JOIN accounts ON recipes.creatorId = accounts.id
       WHERE recipes.id = LAST_INSERT_ID();";
 
-    Recipe recipe = _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) =>
+    Recipe recipe = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, account) =>
     {
       recipe.Creator = account;
       return recipe;
