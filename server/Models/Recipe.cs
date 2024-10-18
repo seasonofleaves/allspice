@@ -16,4 +16,5 @@ public class Recipe
   [MaxLength(1000)]
   public string Category { get; set; }
   public string CreatorId { get; set; }
+  public Account Creator { get; set; }
 }
