@@ -10,6 +10,17 @@ public class RecipesService
     _repository = repository;
   }
 
+  internal string DeleteRecipe(int recipeId, string userId)
+  {
+    Recipe recipeToDelete = GetRecipeById(recipeId);
+    if (recipeToDelete.CreatorId != userId)
+    {
+      throw new Exception("Not your recipe to delete");
+    }
+    _repository.DeleteRecipe(recipeId);
+    return $"{recipeToDelete.Title} was deleted!";
+  }
+
   internal Recipe CreateRecipe(Recipe recipeData)
   {
     Recipe recipe = _repository.CreateRecipe(recipeData);

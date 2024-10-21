@@ -79,5 +79,19 @@ public class RecipesRepository
     if (rowsAffected == 0) { throw new Exception("No recipes were updated."); }
     if (rowsAffected > 1) { throw new Exception($"{rowsAffected} recipes were updated."); }
   }
+
+  internal void DeleteRecipe(int recipeId)
+  {
+    string sql = "DELETE FROM recipes WHERE id = @recipeId LIMIT 1;";
+    int rowsAffected = _db.Execute(sql, new { recipeId });
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No recipes were deleted.");
+    }
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"{rowsAffected} recipes were deleted.");
+    }
+  }
 }
 
