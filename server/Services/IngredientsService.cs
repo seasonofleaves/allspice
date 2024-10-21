@@ -1,3 +1,5 @@
+
+
 namespace allspice.Services;
 
 public class IngredientsService
@@ -7,4 +9,11 @@ public class IngredientsService
     _repository = repository;
   }
   private readonly IngredientsRepository _repository;
+
+  internal Ingredient CreateIngredient(Ingredient ingredientData)
+  {
+    Ingredient ingredient = _repository.CreateIngredient(ingredientData);
+    return ingredient;
+  }
+
 }
