@@ -9,7 +9,7 @@ public class Favorite
   public string AccountId { get; set; }
 }
 
-public class FavoriteProfile : Profile
+public class FavoriteRecipe : Recipe
 {
   public int FavoriteId { get; set; }
 }
