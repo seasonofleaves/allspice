@@ -1,5 +1,7 @@
 
 
+
+
 namespace allspice.Repositories;
 
 public class IngredientsRepository
@@ -30,5 +32,13 @@ public class IngredientsRepository
     List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
     return ingredients;
   }
+
+  internal Ingredient GetIngredientById(int ingredientId)
+  {
+    string sql = "SELECT * FROM ingredients WHERE id = @ingredientId;";
+    Ingredient ingredient = _db.Query<Ingredient>(sql, new { ingredientId }).FirstOrDefault();
+    return ingredient;
+  }
+
 }
 

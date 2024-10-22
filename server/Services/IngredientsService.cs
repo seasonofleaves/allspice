@@ -1,5 +1,6 @@
 
 
+
 namespace allspice.Services;
 
 public class IngredientsService
@@ -9,7 +10,6 @@ public class IngredientsService
     _repository = repository;
   }
   private readonly IngredientsRepository _repository;
-
   internal Ingredient CreateIngredient(Ingredient ingredientData)
   {
     Ingredient ingredient = _repository.CreateIngredient(ingredientData);
@@ -21,4 +21,15 @@ public class IngredientsService
     List<Ingredient> ingredients = _repository.GetIngredientsByRecipeId(recipeId);
     return ingredients;
   }
+
+  private Ingredient GetIngredientById(int ingredientId)
+  {
+    Ingredient ingredient = _repository.GetIngredientById(ingredientId);
+    if (ingredient == null)
+    {
+      throw new Exception($"Invalid ingredient id: {ingredientId}");
+    }
+    return ingredient;
+  }
+
 }
