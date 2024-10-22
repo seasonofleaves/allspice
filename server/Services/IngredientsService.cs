@@ -13,8 +13,13 @@ public class IngredientsService
   private readonly IngredientsRepository _repository;
   private readonly RecipesService _recipesService;
 
-  internal Ingredient CreateIngredient(Ingredient ingredientData)
+  internal Ingredient CreateIngredient(Ingredient ingredientData, string userId)
   {
+    Recipe recipe = _recipesService.GetRecipeById(ingredientData.RecipeId);
+    if (recipe.CreatorId != userId)
+    {
+      throw new Exception("Not your ingredient to delete.");
+    }
     Ingredient ingredient = _repository.CreateIngredient(ingredientData);
     return ingredient;
   }
