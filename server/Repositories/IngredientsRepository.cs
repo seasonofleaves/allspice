@@ -40,5 +40,18 @@ public class IngredientsRepository
     return ingredient;
   }
 
+  internal void DeleteIngredient(int ingredientId)
+  {
+    string sql = "DELETE FROM ingredients WHERE id = @ingredientId LIMIT 1;";
+    int rowsAffected = _db.Execute(sql, new { ingredientId });
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No ingredient deleted.");
+    }
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"{rowsAffected} ingredients deleted.");
+    }
+  }
 }
 
