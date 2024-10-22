@@ -1,3 +1,4 @@
+
 namespace allspice.Repositories;
 
 public class FavoritesRepository
@@ -31,6 +32,28 @@ public class FavoritesRepository
       return recipe;
     }, favoriteData).FirstOrDefault();
     return favoriteProfile;
+  }
+
+  internal List<FavoriteRecipe> GetFavoriteByAccountId(string userId)
+  {
+    string sql = @"
+        SELECT
+        favorites.*,
+        recipes.*,
+        accounts.*
+        FROM
+        favorites
+        JOIN recipes ON recipes.id = favorites.recipeId
+        JOIN accounts ON favorites.accountId = accounts.id
+        WHERE favorites.accountId = @userId;";
+
+    List<FavoriteRecipe> favorites = _db.Query<Favorite, FavoriteRecipe, Profile, FavoriteRecipe>(sql, (favorite, recipe, profile) =>
+    {
+      recipe.FavoriteId = favorite.Id;
+      recipe.Creator = profile;
+      return recipe;
+    }, new { userId }).ToList();
+    return favorites;
   }
 }
 
