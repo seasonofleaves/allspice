@@ -1,4 +1,6 @@
 
+
+
 namespace allspice.Repositories;
 
 public class FavoritesRepository
@@ -54,6 +56,23 @@ public class FavoritesRepository
       return recipe;
     }, new { userId }).ToList();
     return favorites;
+  }
+
+  internal Favorite GetFavoriteById(int favoriteId)
+  {
+    string sql = "SELECT * FROM favorites WHERE id = @favoriteId;";
+    Favorite favorite = _db.Query<Favorite>(sql, new { favoriteId }).FirstOrDefault();
+    return favorite;
+  }
+
+  internal void DeleteFavorite(int favoriteId)
+  {
+    string sql = "DELETE FROM favorites WHERE id = @favoriteId LIMIT 1;";
+    int rowsAffected = _db.Execute(sql, new { favoriteId });
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} favorites were deleted");
+    }
   }
 }
 

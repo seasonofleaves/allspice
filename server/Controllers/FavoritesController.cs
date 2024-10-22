@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace allspice.Controllers;
 
 [ApiController]
@@ -22,6 +24,22 @@ public class FavoritesController : ControllerBase
       favoriteData.AccountId = userInfo.Id;
       FavoriteRecipe favoriteProfile = _favoritesService.CreateFavorite(favoriteData);
       return Ok(favoriteProfile);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpDelete("{favoriteId}")]
+  public async Task<ActionResult<string>> DeleteFavorite(int favoriteId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      _favoritesService.DeleteFavorite(favoriteId, userInfo.Id);
+      return Ok("No longer favorited recipe");
     }
     catch (Exception exception)
     {
