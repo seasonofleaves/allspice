@@ -33,4 +33,15 @@ CREATE TABLE ingredients (
     quantity VARCHAR(255) NOT NULL,
     recipeId INT NOT NULL,
     Foreign Key (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
-)
+);
+
+CREATE TABLE favorites (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    recipeId INT NOT NULL,
+    accountId VARCHAR(255) NOT NULL,
+    FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE,
+    FOREIGN KEY (accountId) REFERENCES accounts (id) ON DELETE CASCADE,
+    UNIQUE (recipeId, accountId)
+);
