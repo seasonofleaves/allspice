@@ -1,8 +1,11 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const recipes = computed(() => AppState.recipes)
 
 onMounted(() =>{
   getAllRecipes()
@@ -25,6 +28,11 @@ async function getAllRecipes(){
   <section class="row hero">
     <div class="col-12 ">
       <h1>Allspice</h1>
+    </div>
+  </section>
+  <section class="row">
+    <div v-for="recipe in recipes" :key="recipe.id" class="col-12">
+      {{ recipe }}
     </div>
   </section>
 </div>
