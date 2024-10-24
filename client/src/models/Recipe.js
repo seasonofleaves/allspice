@@ -1,6 +1,6 @@
 import { Profile } from "./Profile.js"
 
-export class Recipe{
+export class Recipe {
   constructor(data){
     this.id = data.id
     this.createdAt = new Date(data.createdAt)
