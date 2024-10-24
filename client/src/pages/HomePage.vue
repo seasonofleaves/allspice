@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import RecipeCard from '@/components/RecipeCard.vue';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
@@ -31,8 +32,8 @@ async function getAllRecipes(){
     </div>
   </section>
   <section class="row">
-    <div v-for="recipe in recipes" :key="recipe.id" class="col-12">
-      {{ recipe }}
+    <div v-for="recipe in recipes" :key="recipe.id" class="col-3">
+      <RecipeCard :recipe/>
     </div>
   </section>
 </div>
