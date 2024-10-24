@@ -10,7 +10,7 @@ defineProps({
 
 
 <template>
-  <div class="card bg-card shadow my-4 justify-content-end" :style="{backgroundImage: 'url('+recipe.imgUrl+')'}">
+  <div class="card bg-card m-4 justify-content-end" :style="{backgroundImage: 'url('+recipe.imgUrl+')'}">
     <div class="container-fluid ">
       <section class="row d-flex">
         <div class="col-12 text-center">
@@ -39,6 +39,7 @@ img{
   background-size: cover;
   background-position: center;
   border: none;
+  box-shadow: 0 1px 10px rgb(67, 67, 67);
 }
 
 .title-card{
