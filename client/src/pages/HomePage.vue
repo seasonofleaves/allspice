@@ -1,4 +1,22 @@
 <script setup>
+import { recipesService } from '@/services/RecipesService.js';
+import { logger } from '@/utils/Logger.js';
+import Pop from '@/utils/Pop.js';
+import { onMounted } from 'vue';
+
+onMounted(() =>{
+  getAllRecipes()
+})
+
+async function getAllRecipes(){
+  try {
+    await recipesService.getAllRecipes()
+  }
+  catch (error){
+    Pop.error(error)
+    logger.log(error)
+  }
+}
 
 </script>
 
@@ -18,5 +36,6 @@
   min-height: 50dvh;
   background-size: cover;
   background-position: center;
+  color: white;
 }
 </style>
