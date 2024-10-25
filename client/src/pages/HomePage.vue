@@ -1,15 +1,23 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import ModalWrapper from '@/components/ModalWrapper.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
+import RecipeDetails from '@/components/RecipeDetails.vue';
+import { Recipe } from '@/models/Recipe.js';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
 import Pop from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 const recipes = computed(() => AppState.recipes)
+const activeRecipe = computed(() => AppState.activeRecipe)
 
 onMounted(() =>{
   getAllRecipes()
+})
+
+defineProps({
+  recipe: {type: Recipe, required: true}
 })
 
 async function getAllRecipes(){
@@ -25,6 +33,9 @@ async function getAllRecipes(){
 </script>
 
 <template>
+  <ModalWrapper id="recipe-details">
+    <RecipeDetails v-if="activeRecipe" :activeRecipe/>
+  </ModalWrapper>
   <div class="hero">
     <div class="container h-100">
       <section class="h-100 d-flex align-items-center justify-content-center">
@@ -39,7 +50,9 @@ async function getAllRecipes(){
     <div class="container-fluid">
       <section class="row m-2">
         <div v-for="recipe in recipes" :key="recipe.id" class="p-0 col-12 col-sm-6 col-md-4 col-md-3">
-          <RecipeCard :recipe/>
+          <div data-bs-toggle="modal" data-bs-target="#recipe-details">
+            <RecipeCard :recipe/>
+          </div>
         </div>
       </section>
     </div>
