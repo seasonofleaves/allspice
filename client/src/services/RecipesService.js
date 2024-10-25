@@ -4,6 +4,11 @@ import { Recipe } from "@/models/Recipe.js"
 import { AppState } from "@/AppState.js"
 
 class RecipesService{
+  setActiveRecipe(recipe) {
+    AppState.activeRecipe = null
+    AppState.activeRecipe = recipe
+  }
+
   async getAllRecipes() {
     const response = await api.get('api/recipes')
     logger.log('got all recipes', response.data)

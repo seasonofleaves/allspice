@@ -1,17 +1,21 @@
 <script setup>
 import { Recipe } from '@/models/Recipe.js';
+import { recipesService } from '@/services/RecipesService.js';
 
-
-defineProps({
+const props = defineProps({
   recipe: {type: Recipe, required: true}
 })
+
+function setActiveRecipe(){
+recipesService.setActiveRecipe(props.recipe)
+}
 
 </script>
 
 
 <template>
-  <div class="card bg-card m-4 justify-content-end" :style="{backgroundImage: 'url('+recipe.imgUrl+')'}">
-    <div class="container-fluid ">
+  <div @click="setActiveRecipe()" class="card bg-card m-4 justify-content-end" :style="{backgroundImage: 'url('+recipe.imgUrl+')'}">
+    <div class="container-fluid">
       <section class="row d-flex">
         <div class="col-12 text-center">
           <div class="card title-card mb-2">
