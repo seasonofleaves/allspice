@@ -77,3 +77,13 @@ async function getAllRecipes(){
 }
 
 </style>
+
+<style>
+#recipe-details .modal-body{
+  padding: 0;
+}
+
+#recipe-details .modal{
+  border-radius: 0;
+}
+</style>

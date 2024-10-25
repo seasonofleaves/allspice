@@ -6,7 +6,7 @@ defineProps({ modalId: String })
 
 <template>
   <div class="modal fade" :id="modalId">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-body">
           <slot>
@@ -19,5 +19,8 @@ defineProps({ modalId: String })
 
 
 <style lang="scss" scoped>
-
+.modal{
+  --bs-modal-border-radius: 0;
+  height: 80vh;
+}
 </style>
